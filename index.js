@@ -49,11 +49,30 @@ select.addEventListener('change', (event) => {
     console.log(`selected algorithm ${algorithm}`, t)
 })
 
+// let record = true;
+// const generator = new MediaStreamTrackGenerator({ kind: 'video' });
+// const writer = generator.writable.getWriter();
+// const stream = new MediaStream([generator]);
+// const chunks = [];
+// const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+// recorder.ondataavailable = (event) => chunks.push(event.data);
+// recorder.onstop = () => {
+//     console.log('saving media')
+//     const blob = new Blob(chunks, { 'type': 'video/webm' });
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement('a');
+//     a.href = url;
+//     a.download = 'recording.webm';
+//     a.click();
+// }
+// recorder.start();
+
 let t = 0;
+let numT = 1000;
 // const sleep = ms => new Promise(handler => setTimeout(handler, ms));
 async function step() {
     // get points
-    exports.frame_points(algorithm, t, xptsPtr, yptsPtr, numPoints)
+    exports.frame_points(algorithm, t / numT, xptsPtr, yptsPtr, numPoints)
 
     // clear canvas
     ctx.fillStyle = 'black';
@@ -67,10 +86,22 @@ async function step() {
         ctx.fill();
     }
 
-    t += 0.001;
-    if (t >= 1.0) t = 0;
-    // await sleep(200);
+    // if (record) {
+    //     const videoFrame = new VideoFrame(canvas, { timestamp: performance.now() });
+    //     await writer.write(videoFrame);
+    //     videoFrame.close();
+    // }
 
+    if ((t += 1) >= numT) {
+        t = 0;
+        // if (record) {
+        //     record = false;
+        //     writer.close();
+        //     recorder.stop();
+        // }
+    }
+
+    // await sleep(200);
     requestAnimationFrame(step);
 }
 requestAnimationFrame(step);
