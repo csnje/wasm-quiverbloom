@@ -1,0 +1,18 @@
+[package]
+name = "wasm-quiverbloom"
+version = "0.1.0"
+authors = ["Chris Snape-Jenkinson"]
+edition = "2024"
+description = "An implementation of algorithms originally by yuruyurau"
+license = "MIT"
+
+[lib]
+
+crate-type = ["cdylib"]
+
+[dependencies]
+
+[profile.release]
+lto = true
+# strip = true
+strip = "debuginfo"
