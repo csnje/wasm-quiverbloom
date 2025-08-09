@@ -2,7 +2,7 @@
 
 ## About
 
-An implementation of several visually striking algorithms originally created by [yuruyurau](https://x.com/yuruyurau) in **Rust** **WebAssembly**.
+An implementation in **Rust** **WebAssembly** and **JavaScript** of several visually striking algorithms designed by [yuruyurau](https://x.com/yuruyurau) .
 
 ![Image of output](./images/output.png)
 
@@ -28,4 +28,4 @@ python -m SimpleHTTPServer
 jwebserver
 ```
 
-Access via a browser at [http://localhost:8000](http://localhost:8000).
+Access via a web browser at [http://localhost:8000](http://localhost:8000).
