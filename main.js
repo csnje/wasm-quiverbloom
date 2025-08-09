@@ -1,3 +1,5 @@
+import { CanvasRecorder } from './recorder.js';
+
 const wasm_file = await fetch('./target/wasm32-unknown-unknown/release/wasm_quiverbloom.wasm');
 const { instance } = await WebAssembly.instantiateStreaming(wasm_file);
 
@@ -49,22 +51,7 @@ select.addEventListener('change', (event) => {
     console.log(`selected algorithm ${algorithm}`, t)
 })
 
-// let record = true;
-// const generator = new MediaStreamTrackGenerator({ kind: 'video' });
-// const writer = generator.writable.getWriter();
-// const stream = new MediaStream([generator]);
-// const chunks = [];
-// const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-// recorder.ondataavailable = (event) => chunks.push(event.data);
-// recorder.onstop = () => {
-//     console.log('saving media')
-//     const blob = new Blob(chunks, { 'type': 'video/webm' });
-//     const url = URL.createObjectURL(blob);
-//     const a = document.createElement('a');
-//     a.href = url;
-//     a.download = 'recording.webm';
-//     a.click();
-// }
+const recorder = new CanvasRecorder(canvas, 'recording.webm');
 // recorder.start();
 
 let t = 0;
@@ -86,19 +73,11 @@ async function step() {
         ctx.fill();
     }
 
-    // if (record) {
-    //     const videoFrame = new VideoFrame(canvas, { timestamp: performance.now() });
-    //     await writer.write(videoFrame);
-    //     videoFrame.close();
-    // }
+    recorder.captureFrame();
 
     if ((t += 1) >= numT) {
         t = 0;
-        // if (record) {
-        //     record = false;
-        //     writer.close();
-        //     recorder.stop();
-        // }
+        recorder.stop();
     }
 
     // await sleep(200);
