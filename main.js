@@ -69,7 +69,7 @@ async function step() {
     ctx.fillStyle = 'rgb(255 255 255 / 20%)';
     for (let i = 0; i < numPoints; i++) {
         ctx.beginPath();
-        ctx.arc(xpts[i], ypts[i], 1.0, 0, Math.PI);
+        ctx.arc(xpts[i], ypts[i], 1.0, 0, 2.0 * Math.PI);
         ctx.fill();
     }
 
