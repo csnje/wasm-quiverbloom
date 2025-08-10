@@ -7,7 +7,6 @@ description = "An implementation of algorithms originally by yuruyurau"
 license = "MIT"
 
 [lib]
-
 crate-type = ["cdylib"]
 
 [dependencies]
