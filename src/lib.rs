@@ -1,4 +1,4 @@
-/// Return pointer to allocted memory of specified size.
+/// Return pointer to allocated memory of specified size.
 #[unsafe(no_mangle)]
 pub extern "C" fn create_array(size: usize) -> *mut f64 {
     let mut data = Vec::with_capacity(size);
